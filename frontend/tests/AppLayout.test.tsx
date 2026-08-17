@@ -20,7 +20,7 @@ describe("AppLayout", () => {
 
     render(<RouterProvider router={router} />);
 
-    expect(screen.getByText("AMM")).toBeInTheDocument();
+    expect(screen.getByText("Prueba Tecnica Michael Page")).toBeInTheDocument();
     expect(screen.getByText("Solicitudes")).toBeInTheDocument();
     expect(screen.getByText("Nueva solicitud")).toBeInTheDocument();
     expect(screen.getByText("Acceso aprobador")).toBeInTheDocument();

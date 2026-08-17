@@ -122,6 +122,23 @@ Tablas principales:
 - `approvers`
 - `otp_codes`
 
+## Ejecucion Con Docker
+
+Tambien se puede levantar todo el proyecto con Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Servicios expuestos:
+
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:4000`
+- Swagger: `http://localhost:4000/api/docs`
+- MySQL: `localhost:3306`
+
+En este modo el backend se conecta al servicio `mysql` internamente y sincroniza las tablas al iniciar.
+
 ## Ejecucion
 
 Backend:

@@ -9,7 +9,8 @@
     "start": "node dist/server.js",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "db:sync": "tsx src/database/sync.ts"
+    "db:sync": "tsx src/database/sync.ts",
+    "db:sync:prod": "node dist/database/sync.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -1,0 +1,14 @@
+node_modules
+backend/node_modules
+frontend/node_modules
+backend/dist
+frontend/dist
+backend/coverage
+frontend/coverage
+coverage
+.git
+.env
+backend/.env
+frontend/.env
+backend/storage/evidence/*.pdf
+*.tsbuildinfo

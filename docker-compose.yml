@@ -2,6 +2,7 @@ services:
   mysql:
     image: mysql:8.4
     container_name: amm-approval-mysql
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: amm_approval
@@ -9,6 +10,53 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: amm-approval-backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      API_BASE_URL: http://localhost:4000
+      FRONTEND_URL: http://localhost:5173
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: amm_approval
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_LOGGING: "false"
+      PDF_STORAGE_DRIVER: local
+      PDF_LOCAL_DIR: backend/storage/evidence
+      OTP_TTL_MINUTES: 3
+    ports:
+      - "4000:4000"
+    volumes:
+      - evidence_data:/app/backend/storage/evidence
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:4000/api
+    container_name: amm-approval-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
 
 volumes:
   mysql_data:
+  evidence_data:
