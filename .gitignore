@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+coverage
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+backend/storage/evidence/*.pdf
